@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import DetailUserView from '../views/DetailUserView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import CreatePost from '../views/CreatePost.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +24,12 @@ const router = createRouter({
       name: 'register',
       component: RegisterView,
       meta: {'title' : 'Register'}
+    },
+    {
+      path: '/post/create',
+      name: 'create.post',
+      component: CreatePost,
+      meta: {'title' : 'Create Post'}
     },
   ]
 })
