@@ -79,7 +79,7 @@ export default {
         }
     },
 
-    mounted(){
+    beforeCreate(){
         if(localStorage.getItem('token') != null){
             router.push(`/users/${localStorage.getItem('username')}`);
         }

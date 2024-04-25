@@ -13,7 +13,7 @@
                 </div>
                 <div>
 
-                    <a href="#" class="btn btn-primary w-100 mb-2" v-if='acc == true'>
+                    <a href="/post/create" class="btn btn-primary w-100 mb-2" v-if='acc == true'>
                         + Create new post
                     </a>
 
@@ -154,6 +154,7 @@ export default {
         this.cek();
     },
 
+    //Penting
     beforeRouteEnter(to, from, next) {
         const token = localStorage.getItem('token');
         axios.get(`http://localhost:8000/api/v1/users/${to.params.username}`, {
