@@ -2,7 +2,7 @@
     <div>
         <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div class="container">
-                <a class="navbar-brand m-auto" href="index.html">Facegram</a>
+                <a class="navbar-brand m-auto" href="#">Facegram</a>
             </div>
         </nav>
         
@@ -35,7 +35,7 @@
                         </div>
         
                         <div class="text-center mt-4">
-                            Don't have account? <a href="register.html">Register</a>
+                            Don't have account? <a href="/register">Register</a>
                         </div>
         
                     </div>
@@ -68,6 +68,7 @@ export default {
                 console.log(response);
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('username', this.username);
+                localStorage.setItem('isLogin', true);
                 router.go('/users/', this.username);
             })
             .catch((error) => {

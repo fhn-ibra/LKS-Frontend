@@ -119,35 +119,63 @@
 </template>
 <script>
 import axios from 'axios'
+import router from '@/router'
+
+
 export default {
-    data(){
-        return{
+    data() {
+        return {
             user: [],
             token: ''
         }
     },
 
+    mounted() {
+        this.cek();
+    },
 
-    // beforeRouteEnter(){
-
-    // },
-
-    created(){
+    created() {
         this.token = localStorage.getItem('token');
         axios.get(`http://localhost:8000/api/v1/users/${this.$route.params.username}`, {
             headers: {
-                'Authorization': `Bearer ${this.token}`, 
+                'Authorization': `Bearer ${this.token}`,
             }
         })
-        .then((response) => {
-            this.user = response.data;
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
+            .then((response) => {
+                this.user = response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    },
+
+    methods: {
+        cek() {
+            this.token = localStorage.getItem('token');
+            if (this.token == null) {
+                localStorage.clear();
+                router.push('/login');
+            } else {
+                axios.get('http://localhost:8000/api/user', {
+                    'headers': {
+                        'Authorization': `Bearer ${this.token}`
+                    }
+                })
+                    .then((response) => {
+                        console.log(response);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        localStorage.clear();
+                        router.push('/login');
+                    })
+            }
+        }
+    },
+
+    
 }
 </script>
 <style lang="">
-    
+
 </style>
