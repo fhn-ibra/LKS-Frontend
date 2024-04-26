@@ -3,6 +3,7 @@ import LoginView from '../views/LoginView.vue'
 import DetailUserView from '../views/DetailUserView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import CreatePost from '../views/CreatePost.vue'
+import Home from '../views/Home.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,9 +32,16 @@ const router = createRouter({
       component: CreatePost,
       meta: {'title' : 'Create Post'}
     },
+    {
+      path: '/',
+      name: 'home',
+      component: Home,
+      meta: {'title' : 'Home'}
+    },
   ]
 })
 
+//Sintaks ini
 router.beforeEach((to, from) => {
   document.title = to.meta?.title ?? 'Facegram'
 });

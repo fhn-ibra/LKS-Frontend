@@ -8,7 +8,9 @@
                         <span>@{{user.username == null ? '' : user.username}}</span>
                     </div>
                     <small class="mb-0 text-muted">
-                       {{ user.bio == null ? 'Loading..' : user.bio }}
+                       {{ user.is_your_account == null ? 'Loading..' : user.bio }}
+                       <br>
+                       <b>{{ user.is_your_account == true && user.is_private ? 'The account is private' : '' }}</b>
                     </small>
                 </div>
                 <div>
@@ -21,17 +23,21 @@
                         Follow
                     </a>
 
-                    <a href="#" class="btn btn-secondary w-100 mb-2" v-if="(acc == false) && follow" @click="follow = !follow">
+                    <a href="#" class="btn btn-secondary w-100 mb-2" v-if="(acc == false) && follow && user.is_private == false" @click="follow = !follow">
                         Following
+                    </a>
+                    
+                    <a href="#" class="btn btn-secondary w-100 mb-2" v-if="(acc == false) && follow && user.is_private == true" @click="follow =! follow">
+                        Requested
                     </a>
 
                     <div class="d-flex gap-3">
                         <div>
-                            <div class="profile-label"><b>5</b> posts</div>
+                            <div class="profile-label"><b>{{user.posts_count}}</b> posts</div>
                         </div>
                         <div class="profile-dropdown">
                             <div class="profile-label"><b>100</b> followers</div>
-                            <div class="profile-list">
+                            <div class="profile-list" v-if="(user.is_private == false) || (user.is_private == true && acc == true)">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="profile-user">
@@ -58,7 +64,7 @@
                         </div>
                         <div class="profile-dropdown">
                             <div class="profile-label"><b>100</b> following</div>
-                            <div class="profile-list">
+                            <div class="profile-list" v-if="(user.is_private == false) || (user.is_private == true && acc == true)">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="profile-user">
@@ -86,8 +92,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-4"  v-for="post in user.posts">
+            
+            <div class="row justify-content-center" v-if="(acc == true && user.is_private == true) || (user.is_private == false)">
+                <div class="col-md-4" v-for="post in user.posts">
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="card-images mb-2">
@@ -99,6 +106,13 @@
                     </div>
                 </div>
             </div>  
+
+            <div class="card py-4" v-else>
+                <div class="card-body text-center">
+                    &#128274; This account is private
+                </div>
+            </div>
+
         </div>
 
 
@@ -128,7 +142,7 @@ export default {
         this.cek();
     },
 
-    //Penting
+    //Penting Pelajari ini
     beforeRouteEnter(to, from, next) {
         const token = localStorage.getItem('token');
         axios.get(`http://localhost:8000/api/v1/users/${to.params.username}`, {
@@ -137,9 +151,6 @@ export default {
             }
         })
             .then((response) => {
-                // console.log(response);
-                // this.user = response.data;
-                // this.acc = response.data.is_your_account;
                 next(vm => {
                 vm.user = response.data;
                 vm.acc = response.data.is_your_account;
@@ -147,8 +158,6 @@ export default {
             });
             })
             .catch((error) => {
-                // this.user = error.response.data.message;
-                // console.log(this.user);
                 console.log(error);
                 next(vm => {
                     vm.user = error.response.data.message;

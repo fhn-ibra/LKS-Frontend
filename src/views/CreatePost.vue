@@ -19,6 +19,7 @@
     
                                 <div class="mb-3">
                                     <label for="attachments">Image(s)</label>
+                                    <!-- Pelajari Ini -->
                                     <input type="file" class="form-control" id="attachments" name="attachments" multiple @change="file"/>
                                 </div>
     
@@ -72,6 +73,7 @@ export default {
             }
         },
         
+        //Ini juga
         file(e){
             this.photo = e.target.files;
         },
