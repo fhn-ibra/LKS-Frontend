@@ -35,22 +35,22 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="profile-user">
-                                            <a href="user-profile-private.html">@davidnaista</a>
+                                            <a href="#">@davidnaista</a>
                                         </div>
                                         <div class="profile-user">
-                                            <a href="user-profile-private.html">@superipey</a>
+                                            <a href="#">@superipey</a>
                                         </div>
                                         <div class="profile-user">
-                                            <a href="user-profile-private.html">@lukicenturi</a>
+                                            <a href="#">@lukicenturi</a>
                                         </div>
                                         <div class="profile-user">
-                                            <a href="user-profile-private.html">@_erik3010</a>
+                                            <a href="#">@_erik3010</a>
                                         </div>
                                         <div class="profile-user">
-                                            <a href="user-profile-private.html">@asawgi</a>
+                                            <a href="#">@asawgi</a>
                                         </div>
                                         <div class="profile-user">
-                                            <a href="user-profile-private.html">@irfnmaulaa</a>
+                                            <a href="#">@irfnmaulaa</a>
                                         </div>
                                     </div>
                                 </div>
@@ -62,22 +62,22 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="profile-user">
-                                            <a href="user-profile-private.html">@davidnaista</a>
+                                            <a href="#">@davidnaista</a>
                                         </div>
                                         <div class="profile-user">
-                                            <a href="user-profile-private.html">@superipey</a>
+                                            <a href="#">@superipey</a>
                                         </div>
                                         <div class="profile-user">
-                                            <a href="user-profile-private.html">@lukicenturi</a>
+                                            <a href="#">@lukicenturi</a>
                                         </div>
                                         <div class="profile-user">
-                                            <a href="user-profile-private.html">@_erik3010</a>
+                                            <a href="#">@_erik3010</a>
                                         </div>
                                         <div class="profile-user">
-                                            <a href="user-profile-private.html">@asawgi</a>
+                                            <a href="#">@asawgi</a>
                                         </div>
                                         <div class="profile-user">
-                                            <a href="user-profile-private.html">@irfnmaulaa</a>
+                                            <a href="#">@irfnmaulaa</a>
                                         </div>
                                     </div>
                                 </div>
@@ -87,43 +87,18 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-md-4">
+                <div class="col-md-4"  v-for="post in user.posts">
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="card-images mb-2">
-                                <!-- <img src="posts/52a93d48-b9d4-4a7e-9fb7-c9466da4c344.webp" alt="image" class="w-100"/>
-                                <img src="posts/5898d0f58275e829008b4842.webp" alt="image" class="w-100"/>
-                                <img src="posts/shutterstock_1464930743-scaled.webp" alt="image" class="w-100"/> -->
+                                <img :src="`http://localhost:8000/storage/${post.storage_path}`" alt="image" class="w-100" v-for="post in post.attachments"/>
+                                <
                             </div>
-                            <p class="mb-0 text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, minima?</p>
+                            <p class="mb-0 text-muted">{{post.caption}}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="card-images mb-2">
-                                <!-- <img src="posts/5898d0f58275e829008b4842.webp" alt="image" class="w-100"/>
-                                <img src="posts/52a93d48-b9d4-4a7e-9fb7-c9466da4c344.webp" alt="image" class="w-100"/>
-                                <img src="posts/shutterstock_1464930743-scaled.webp" alt="image" class="w-100"/> -->
-                            </div>
-                            <p class="mb-0 text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, minima?</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="card-images mb-2">
-                                <!-- <img src="posts/shutterstock_1464930743-scaled.webp" alt="image" class="w-100"/>
-                                <img src="posts/52a93d48-b9d4-4a7e-9fb7-c9466da4c344.webp" alt="image" class="w-100"/>
-                                <img src="posts/5898d0f58275e829008b4842.webp" alt="image" class="w-100"/> -->
-                            </div>
-                            <p class="mb-0 text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, minima?</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </div>  
         </div>
 
 
@@ -147,7 +122,6 @@ export default {
     },
 
     setup(){
-
     },
 
     mounted() {
