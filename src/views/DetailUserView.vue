@@ -1,6 +1,9 @@
 <template lang="">
     <main class="mt-5">
         <div class="container py-5" v-if="user != 'User Not Found'">
+
+            <div class="alert alert-success" v-if="this.delete == true">Post Have been Deleted. <a :href="`/users/${username}`">Click here to Refresh</a></div>
+
             <div class="px-5 py-4 bg-light mb-4 d-flex align-items-center justify-content-between">
                 <div>
                     <div class="d-flex align-items-center gap-2 mb-2">
@@ -94,12 +97,12 @@
             </div>
             
             <div class="row justify-content-center" v-if="(acc == true && user.is_private == true) || (user.is_private == false)">
-                <div class="col-md-4" v-for="post in user.posts">
+                <div class="col-md-4" v-for="post in user.posts" :key="post.id">
                     <div class="card mb-4">
                         <div class="card-body">
+                            <button class="btn btn-danger btn-sm mb-1" @click="deletepost(post.id)">x</button>
                             <div class="card-images mb-2">
                                 <img :src="`http://localhost:8000/storage/${post.storage_path}`" alt="image" class="w-100" v-for="post in post.attachments"/>
-                                <
                             </div>
                             <p class="mb-0 text-muted">{{post.caption}}</p>
                         </div>
@@ -131,7 +134,9 @@ export default {
         return {
             user: [],
             token: '',
-            acc: 'Lorem'
+            acc: 'Lorem',
+            delete: false,
+            username: localStorage.getItem('username')
         }
     },
 
@@ -186,7 +191,22 @@ export default {
                         router.push('/login');
                     })
             }
-        }
+        },
+
+        deletepost(id){
+            axios.delete(`http://localhost:8000/api/v1/posts/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${this.token}`
+                }
+            })
+            .then((response) => {
+                console.log(response);
+                this.delete = true;
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        },
     },
 
     
